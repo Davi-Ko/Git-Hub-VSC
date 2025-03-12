@@ -5,9 +5,9 @@
 Separei os códigos de arduíno entre os modos STA+AP e ESP-NOW.
 
 ## STA+AP:
-Modo Station + Access Point, nesse modo ambos os ESP-01s funcionam como AP e Client.
-Ambos os relays liberam a sua própria rede wifi configurada, se conectam à rede do outro relay e conseguem se trocar informações puxando os status de um do outro.
-    Códigos: [![STA+AP 1](https://img.shields.io/badge/STA%2BAP%201-blue)](STAAP1.ino)
+Modo Station + Access Point, nesse modo ambos os ESP-01s funcionam como AP e Client.<br>
+Ambos os relays liberam a sua própria rede wifi configurada, se conectam à rede do outro relay e conseguem se trocar informações puxando os status de um do outro.<br>
+&nbsp;Códigos: [![STA+AP 1](https://img.shields.io/badge/STA%2BAP%201-blue)](STAAP1.ino)
              [![STA+AP 2](https://img.shields.io/badge/STA%2BAP%202-blue)](STAAP2.ino)
 
 
