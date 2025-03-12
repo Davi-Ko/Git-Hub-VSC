@@ -1,4 +1,4 @@
-# <p align="center">{PROJETO SONOFF}</p>
+# {PROJETO SONOFF}
 
 Separei os códigos de arduíno entre os modos STA+AP e ESP-NOW.
 
