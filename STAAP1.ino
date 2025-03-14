@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
-#define RELAY_PIN 2 // Pino onde o relé está conectado
+#define RELAY_PIN 2 
 
 // Configuração do AP (Ponto de Acesso)
 const char *apSSID = "ESP-AP";

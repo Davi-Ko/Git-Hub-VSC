@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
-#define RELAY_PIN 2 // Pino onde o relé está conectado
+#define RELAY_PIN 2 
 
 // MAC Address do dispositivo receptor (substitua pelo MAC do outro ESP)
 uint8_t macDestino[] = {0xEC, 0xFA, 0xBC, 0x12, 0x34, 0x56};
