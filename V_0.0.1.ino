@@ -7,14 +7,14 @@ const char* ssidAP = "Relay_1";
 const char* passwordAP = "abc12345";
 
 //IP of this relay
-IPAddress local_ip(192, 168, 4, 3);
+IPAddress local_ip(192, 168, 4, 2);
 IPAddress gateway(192, 168, 4, 1);
 IPAddress subnet(255, 255, 255, 0); 
 
 //Configuration of the Wifi from the other ESP-01
 const char* ssidClient = "Relay_2";
 const char* passwordClient = "abc12345";
-const char* serverIP = "192.168.4.2";
+const char* serverIP = "192.168.4.3";
 
 //Creating the WebServer
 ESP8266WebServer server(80);
@@ -34,22 +34,32 @@ void setup(){
     WiFi.softAPConfig(local_ip, gateway, subnet);
 
     //Makes this relay to connect to the other one as a Client
+    Serial.print("Connecting to Relay 2...");
+    
     WiFi.begin(ssidClient, passwordClient);
-    Serial.println("Connecting to Relay 2 WiFi...");
+    while (WiFi.status() != WL_CONNECTED){
+        delay(500);
+        Serial.print("Failed! Retrying Connection...");
+    }
+    Serial.println("\nConnection Success!");
 
+    //Confirmation of this relay IP
+    Serial.print("Relay 1 AP IP: ");
+    Serial.println(WiFi.softAPIP());
+
+    Serial.print("Relay 2 Client IP: ");
+    Serial.println(WiFi.localIP());
 
     //Configuration of the API requisitions
     server.on("/", HTTP_GET, [](){
         String message = "Relay connected and online\n";
     
         if (WiFi.status() == WL_CONNECTED) {
-            message += "Connected to Relay 2 WiFi ✅\n";
-            message += "IP as Client: " + WiFi.localIP().toString();
+            server.send(200, "text/plain", "Connected!");
         } else {
-            message += "Failed to connect to Relay 2 ❌";
+            server.send(200, "text/plain", "Retrying connection...");
         }
 
-        server.send(200, "text/plain", message);
     });
 
     server.on("/ON", HTTP_GET, [](){
