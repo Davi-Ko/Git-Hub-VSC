@@ -34,26 +34,22 @@ void setup(){
     WiFi.softAPConfig(local_ip, gateway, subnet);
 
     //Makes this relay to connect to the other one as a Client
-    Serial.print("Connecting to Relay 2...");
-    
     WiFi.begin(ssidClient, passwordClient);
-    while (WiFi.status() != WL_CONNECTED){
-        delay(500);
-        Serial.print("Failed! Retrying Connection...");
-    }
-    Serial.println("\nConnection Success!");
-
-    //Confirmation of this relay IP
-    Serial.print("Relay 1 AP IP: ");
-    Serial.println(WiFi.softAPIP());
-
-    Serial.print("Relay 1 Client IP: ");
-    Serial.println(WiFi.localIP());
+    Serial.println("Connecting to Relay 2 WiFi...");
 
 
     //Configuration of the API requisitions
     server.on("/", HTTP_GET, [](){
-        server.send(200, "text/plain", "Relay connected and online");
+        String message = "Relay connected and online\n";
+    
+        if (WiFi.status() == WL_CONNECTED) {
+            message += "Connected to Relay 2 WiFi ✅\n";
+            message += "IP as Client: " + WiFi.localIP().toString();
+        } else {
+            message += "Failed to connect to Relay 2 ❌";
+        }
+
+        server.send(200, "text/plain", message);
     });
 
     server.on("/ON", HTTP_GET, [](){
@@ -75,9 +71,15 @@ void setup(){
     server.begin();
 }
 
-//Keeps receiving the requests of new clients
-void loop(){
+//Keeps receiving the requests of new clients and reconnecting Wi-Fi if connection lost
+void loop() {
     server.handleClient();
+
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("Lost connection! Trying to reconnect...");
+        WiFi.begin(ssidClient, passwordClient);
+    }
 }
+
 
 
