@@ -1,0 +1,74 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Controle de Relays ESP-01</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <img src="WiresIcon.png" alt="Logo da Empresa" class="logo">
+            </header>
+            <h1>Controle de Relays ESP-01</h1>
+            
+            <div class="relay-container">
+                <div class="relay-card" id="relay1">
+                    <h2>Relay 1</h2>
+                    <div class="status-indicator">
+                        <span class="status-text">Status: </span>
+                        <span id="relay1-status" class="status">Carregando...</span>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn on-btn" onclick="controlRelay('relay1', 'ON')">LIGAR</button>
+                        <button class="btn off-btn" onclick="controlRelay('relay1', 'OFF')">DESLIGAR</button>
+                    </div>
+                    <div class="connection-status">
+                        <span id="relay1-connection">Verificando conexão...</span>
+                    </div>
+                </div>
+    
+                <div class="relay-card" id="relay2">
+                    <h2>Relay 2</h2>
+                    <div class="status-indicator">
+                        <span class="status-text">Status: </span>
+                        <span id="relay2-status" class="status">Carregando...</span>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn on-btn" onclick="controlRelay('relay2', 'ON')">LIGAR</button>
+                        <button class="btn off-btn" onclick="controlRelay('relay2', 'OFF')">DESLIGAR</button>
+                    </div>
+                    <div class="connection-status">
+                        <span id="relay2-connection">Verificando conexão...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings">
+                <h3>Configurações</h3>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="relay1-ip">IP do Relay 1:</label>
+                        <input type="text" id="relay1-ip" value="192.168.4.2">
+                    </div>
+                    <div class="form-group">
+                        <label for="relay2-ip">IP do Relay 2:</label>
+                        <input type="text" id="relay2-ip" value="192.168.4.3">
+                    </div>
+                    <button class="btn save-btn" onclick="saveSettings()">Salvar Configurações</button>
+                </div>
+            </div>
+            
+            <div class="status-panel">
+                <h3>Status do Sistema</h3>
+                <div id="system-log">
+                    <p>Sistema inicializado. Aguardando comandos...</p>
+                </div>
+            </div>
+        </div>
+    
+        <script src="script.js"></script>
+    </body>
+    </html>
+    
