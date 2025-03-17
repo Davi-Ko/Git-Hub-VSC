@@ -26,11 +26,16 @@ const int relayPin = 0;
 void setup(){
     Serial.begin(115200);
 
+    pinMode(relayPin, OUTPUT);
+    digitalWrite(relayPin, HIGH);
+
     //Configures this relay as Access Point
     WiFi.softAP(ssidAP, passwordAP);
     WiFi.softAPConfig(local_ip, gateway, subnet);
 
     //Makes this relay to connect to the other one as a Client
+    Serial.print("Connecting to Relay 2...");
+    
     WiFi.begin(ssidClient, passwordClient);
     while (WiFi.status() != WL_CONNECTED){
         delay(500);
@@ -39,8 +44,12 @@ void setup(){
     Serial.println("\nConnection Success!");
 
     //Confirmation of this relay IP
-    Serial.print("Relay 1 IP: ");
-    Serial.print(WiFi.softAPIP());
+    Serial.print("Relay 1 AP IP: ");
+    Serial.println(WiFi.softAPIP());
+
+    Serial.print("Relay 1 Client IP: ");
+    Serial.println(WiFi.localIP());
+
 
     //Configuration of the API requisitions
     server.on("/", HTTP_GET, [](){
@@ -48,17 +57,17 @@ void setup(){
     });
 
     server.on("/ON", HTTP_GET, [](){
-        digitalWrite(relayPin, HIGH);
+        digitalWrite(relayPin, LOW);
         server.send(200, "text/plain", "Relay power: ON");
     });
     
     server.on("/OFF", HTTP_GET, [](){
-        digitalWrite(relayPin, LOW);
+        digitalWrite(relayPin, HIGH);
         server.send(200, "text/plain", "Relay power: OFF");
     });
 
     server.on("/status", HTTP_GET, [](){
-        String status = (digitalRead(relayPin) == HIGH) ? "ON" : "OFF";
+        String status = (digitalRead(relayPin) == LOW) ? "ON" : "OFF";
         server.send(200, "text/plain", "Relay Status: " + status);
     });
 
