@@ -1,4 +1,4 @@
-# {PROJETO SONOFF}
+# {PROJECT SONOFF}
 
 ## First Version:
 
