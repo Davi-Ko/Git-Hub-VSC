@@ -4,8 +4,8 @@
 
 This is the first model of the ESP-01 project firmware build!<br>
 <p align="center">
-  <a href="V_0.0.1.ino">
-    <img src="https://img.shields.io/badge/V_0.0.1-blue" alt="V_0.0.1">
+  <a href="Relay1.ino">
+    <img src="https://img.shields.io/badge/Relay1-blue" alt="Relay1">
   </a>
 </p>
 <p align="center">
