@@ -1,74 +1,85 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Controle de Relays ESP-01</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <img src="WiresIcon.png" alt="Logo da Empresa" class="logo">
-            </header>
-            <h1>Controle de Relays ESP-01</h1>
-            
-            <div class="relay-container">
-                <div class="relay-card" id="relay1">
-                    <h2>Relay 1</h2>
-                    <div class="status-indicator">
-                        <span class="status-text">Status: </span>
-                        <span id="relay1-status" class="status">Carregando...</span>
-                    </div>
-                    <div class="buttons">
-                        <button class="btn on-btn" onclick="controlRelay('relay1', 'ON')">LIGAR</button>
-                        <button class="btn off-btn" onclick="controlRelay('relay1', 'OFF')">DESLIGAR</button>
-                    </div>
-                    <div class="connection-status">
-                        <span id="relay1-connection">Verificando conexão...</span>
-                    </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Relays ESP-01</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 Controlador de Relays ESP-01</h1>
+            <p>Sistema de controle inteligente e sincronizado</p>
+        </div>
+
+        <div class="content">
+            <!-- Controles Globais -->
+            <div class="control-section">
+                <div class="section-title">Controles Globais</div>
+                
+                <div class="sync-toggle">
+                    <span>Sincronização Automática:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="syncToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span id="syncStatus">Ativada</span>
                 </div>
-    
-                <div class="relay-card" id="relay2">
-                    <h2>Relay 2</h2>
-                    <div class="status-indicator">
-                        <span class="status-text">Status: </span>
-                        <span id="relay2-status" class="status">Carregando...</span>
-                    </div>
-                    <div class="buttons">
-                        <button class="btn on-btn" onclick="controlRelay('relay2', 'ON')">LIGAR</button>
-                        <button class="btn off-btn" onclick="controlRelay('relay2', 'OFF')">DESLIGAR</button>
-                    </div>
-                    <div class="connection-status">
-                        <span id="relay2-connection">Verificando conexão...</span>
-                    </div>
+
+                <div class="global-controls">
+                    <button class="btn btn-primary" onclick="controlAllRelays('ON')">
+                        🟢 Ligar Todos
+                    </button>
+                    <button class="btn btn-danger" onclick="controlAllRelays('OFF')">
+                        🔴 Desligar Todos
+                    </button>
+                    <button class="btn btn-info" onclick="refreshAllRelays()">
+                        🔄 Atualizar Status
+                    </button>
+                    <button class="btn btn-warning" onclick="testConnection()">
+                        📡 Testar Conexões
+                    </button>
                 </div>
             </div>
-            
-            <div class="settings">
-                <h3>Configurações</h3>
-                <div class="settings-form">
-                    <div class="form-group">
-                        <label for="relay1-ip">IP do Relay 1:</label>
-                        <input type="text" id="relay1-ip" value="192.168.4.2">
-                    </div>
-                    <div class="form-group">
-                        <label for="relay2-ip">IP do Relay 2:</label>
-                        <input type="text" id="relay2-ip" value="192.168.4.3">
-                    </div>
-                    <button class="btn save-btn" onclick="saveSettings()">Salvar Configurações</button>
+
+            <!-- Adicionar Novo Relay -->
+            <div class="control-section">
+                <div class="section-title">Gerenciar Dispositivos</div>
+                
+                <div class="add-relay-section">
+                    <input type="text" id="relayName" class="input-field" placeholder="Nome do Relay" value="">
+                    <input type="text" id="relayIP" class="input-field" placeholder="IP do Relay (ex: 192.168.4.2)" value="">
+                    <button class="btn btn-info" onclick="addRelay()">
+                        ➕ Adicionar Relay
+                    </button>
                 </div>
             </div>
-            
-            <div class="status-panel">
-                <h3>Status do Sistema</h3>
-                <div id="system-log">
-                    <p>Sistema inicializado. Aguardando comandos...</p>
+
+            <!-- Grid de Relays -->
+            <div class="control-section">
+                <div class="section-title">Dispositivos Conectados</div>
+                <div id="relayGrid" class="relay-grid">
+                    <!-- Relays serão adicionados dinamicamente aqui -->
+                </div>
+            </div>
+
+            <!-- Terminal de Status -->
+            <div class="control-section">
+                <div class="section-title">Monitor do Sistema</div>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-title">📊 Log de Atividades</span>
+                        <button class="clear-btn" onclick="clearTerminal()">Limpar</button>
+                    </div>
+                    <div id="terminal"></div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <script src = "script.js"></script>
+</body>
+</html>
     
-        <script src="script.js"></script>
-    </body>
-    </html>
     
